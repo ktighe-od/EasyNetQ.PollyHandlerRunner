@@ -17,7 +17,7 @@
                 });
 
             var bus = RabbitHutch.CreateBus("host=localhost;username=guest;password=guest", registrar => registrar
-                //.Register<ILogProvider>(_ => ConsoleLogProvider.Instance)
+                .Register<ILogProvider>(_ => ConsoleLogProvider.Instance)
                 .UseMessageHandlerPolicy(policy)
             );
 
