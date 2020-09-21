@@ -2,7 +2,7 @@
 {
     using System;
     using EasyNetQ;
-    using EasyNetQ.Loggers;
+    using EasyNetQ.Logging;
     using EasyNetQ.PollyHandlerRunner.Example.Message;
     using Polly;
 
@@ -17,7 +17,7 @@
                 });
 
             var bus = RabbitHutch.CreateBus("host=localhost;username=guest;password=guest", registrar => registrar
-                .Register<IEasyNetQLogger>(_ => new ConsoleLogger())
+                //.Register<ILogProvider>(_ => ConsoleLogProvider.Instance)
                 .UseMessageHandlerPolicy(policy)
             );
 

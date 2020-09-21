@@ -1,8 +1,9 @@
 ﻿namespace EasyNetQ.PollyHandlerRunner {
     using System;
     using EasyNetQ.Consumer;
-    using EasyNetQ;
     using Polly;
+    using EasyNetQ.DI;
+    using EasyNetQ.Logging;
 
     /// <summary>
     /// Defines extension methods for the <see cref="IServiceRegister"/> interface.
@@ -23,9 +24,8 @@
 
             registrar.Register<IHandlerRunner>(services =>
                 new PollyHandlerRunner(
-                    services.Resolve<IEasyNetQLogger>(),
+                    services.Resolve<ILog>(),
                     services.Resolve<IConsumerErrorStrategy>(),
-                    services.Resolve<IEventBus>(),
                     policy));
 
             return registrar;

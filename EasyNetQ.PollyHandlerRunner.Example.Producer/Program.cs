@@ -3,13 +3,14 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EasyNetQ;
-    using EasyNetQ.Loggers;
+    using EasyNetQ.Logging;
     using EasyNetQ.PollyHandlerRunner.Example.Message;
 
     class Program {
         static void Main() {
+
             var bus = RabbitHutch.CreateBus("host=localhost;username=guest;password=guest", registrar => {
-                registrar.Register<IEasyNetQLogger>(_ => new ConsoleLogger());
+                registrar.Register<ILogProvider>(ConsoleLogProvider.Instance);
             });
 
             using (bus) {
